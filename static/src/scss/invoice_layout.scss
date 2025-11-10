@@ -1,78 +1,211 @@
-:root {
-  --brand: #1F6FEB;
-  --brand2: #0B3D91;
-  --logo-max-h: 88px;
-  --radius: 12px;
-  --thead-alpha: .04;
+// ============================================
+// Dynamic Company Document Layout Styles
+// ============================================
+
+// Modern Report Styles
+.o_modern_report {
+    
+    // Logo with subtle shadow
+    .o_dynamic_logo {
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08));
+        transition: all 0.3s ease;
+    }
+    
+    // Modern card-like appearance
+    .article {
+        position: relative;
+        
+        h2, h3, h4 {
+            color: var(--brand-color, #1F6FEB);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+    }
+    
+    // Enhanced tables
+    table.table {
+        border-radius: var(--border-radius, 12px);
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        
+        thead {
+            background-color: rgba(var(--brand-color-rgb, 31, 111, 235), var(--table-head-alpha, 0.06)) !important;
+            
+            th {
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 0.75rem;
+                letter-spacing: 0.5px;
+                color: var(--brand-color, #1F6FEB);
+                padding: 0.75rem 0.5rem;
+                border-bottom: 2px solid var(--brand-color, #1F6FEB);
+            }
+        }
+        
+        tbody {
+            tr {
+                transition: background-color 0.2s ease;
+                
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.02);
+                }
+                
+                td {
+                    padding: 0.65rem 0.5rem;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+                }
+                
+                &:last-child td {
+                    border-bottom: none;
+                }
+            }
+        }
+        
+        // Total rows with accent
+        tfoot, tbody tr.o_total {
+            background-color: rgba(var(--accent-color-rgb, 11, 61, 145), 0.05) !important;
+            font-weight: 600;
+            
+            td {
+                padding: 0.85rem 0.5rem;
+                border-top: 2px solid var(--accent-color, #0B3D91);
+                color: var(--accent-color, #0B3D91);
+            }
+        }
+    }
+    
+    // Rounded elements
+    .border, .card, .alert {
+        border-radius: var(--border-radius, 12px) !important;
+    }
+    
+    // Company tagline styling
+    .o_company_tagline {
+        color: var(--brand-color, #1F6FEB);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+    
+    // Address block
+    .o_company_address {
+        ul {
+            line-height: 1.6;
+            color: #4a5568;
+        }
+    }
+    
+    // Document title
+    h2[t-out="layout_document_title"] {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid var(--brand-color, #1F6FEB);
+        display: inline-block;
+    }
 }
 
-.o_company_logo--dynamic {
-  max-height: var(--logo-max-h);
-  width: auto;
-  object-fit: contain;
+// Font size variations
+.o_report_font_small {
+    font-size: 11px;
+    
+    table {
+        font-size: 10px;
+    }
 }
 
-.article .doc-title, .article h2 {
-  font-size: 26px;
-  letter-spacing: .3px;
-  font-weight: 800;
-  text-transform: uppercase;
+.o_report_font_medium {
+    font-size: 12px;
+    
+    table {
+        font-size: 11px;
+    }
 }
 
-.article .table, .article table {
-  border-collapse: separate !important;
-  border-spacing: 0;
+.o_report_font_large {
+    font-size: 13px;
+    
+    table {
+        font-size: 12px;
+    }
 }
 
-.article thead th {
-  border-bottom: 0 !important;
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: .4px;
-  padding: 10px 12px !important;
-  background: rgba(0,0,0,var(--thead-alpha));
-  color: #111;
-}
-.article thead th:first-child { border-top-left-radius: var(--radius); }
-.article thead th:last-child  { border-top-right-radius: var(--radius); }
-
-.article tbody td {
-  padding: 9px 12px !important;
-  border-top: 1px solid rgba(0,0,0,.06) !important;
+// Header enhancements
+.header {
+    .o_company_logo {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
 }
 
-.table-striped > tbody > tr:nth-of-type(odd) > * {
-  --bs-table-accent-bg: rgba(0,0,0,.02);
+// Footer enhancements
+.footer {
+    .o_footer_content {
+        color: #4a5568;
+        font-size: 0.875rem;
+        
+        a {
+            color: var(--accent-color, #0B3D91);
+            text-decoration: none;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
-.company-card {
-  background: #fff;
-  border: 1px solid rgba(0,0,0,.06);
-  box-shadow: 0 4px 14px rgba(0,0,0,.06);
-  border-radius: calc(var(--radius) + 2px);
-  padding: 10px 14px;
-  min-width: 320px;
+// Striped tables enhancement
+.o_table_striped {
+    tbody tr:nth-child(odd) {
+        background-color: rgba(0, 0, 0, 0.02);
+    }
 }
 
-.invoice-totals-box {
-  margin-top: 12px;
-  padding: 10px 14px;
-  border: 1px dashed rgba(0,0,0,.16);
-  border-radius: var(--radius);
-}
-.invoice-totals-box .line {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 6px 0;
-}
-.invoice-totals-box .line.total {
-  font-weight: 800;
-  font-size: 15px;
-  border-top: 1px solid rgba(0,0,0,.12);
-  margin-top: 6px;
-  padding-top: 10px;
+// Status badges
+.badge {
+    border-radius: calc(var(--border-radius, 12px) / 2);
+    padding: 0.35em 0.65em;
+    font-weight: 600;
 }
 
-a, .text-brand { color: var(--brand); }
-.badge-brand { background: var(--brand); color: #fff; border-radius: var(--radius); padding: .25rem .5rem; }
+// Responsive adjustments
+@media print {
+    .o_modern_report {
+        table.table {
+            page-break-inside: auto;
+            
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            
+            thead {
+                display: table-header-group;
+            }
+            
+            tfoot {
+                display: table-footer-group;
+            }
+        }
+    }
+}
+
+// Additional utility classes
+.o_brand_text {
+    color: var(--brand-color, #1F6FEB) !important;
+}
+
+.o_accent_text {
+    color: var(--accent-color, #0B3D91) !important;
+}
+
+.o_brand_bg {
+    background-color: var(--brand-color, #1F6FEB) !important;
+    color: white !important;
+}
+
+.o_accent_bg {
+    background-color: var(--accent-color, #0B3D91) !important;
+    color: white !important;
+}

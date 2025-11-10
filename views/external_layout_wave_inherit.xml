@@ -1,42 +1,59 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <template id="external_layout_wave_inherit"
-            inherit_id="web.external_layout_wave"
-            name="External Layout Wave – Dynamic (Company UI)">
-
-    <!-- Increase header wave height a bit -->
-    <xpath expr="//t[@t-name='web.external_layout_wave']/t[@t-set='header_shape_height']" position="replace">
-      <t t-set="header_shape_height" t-value="'260'"/>
-    </xpath>
-
-    <!-- Header wave color/opacity from company settings -->
-    <xpath expr="//div[contains(@class,'header')]/svg/path" position="attributes">
-      <attribute name="t-att-fill">company.report_brand_color or company.primary_color</attribute>
-      <attribute name="t-att-fill-opacity">str(company.report_header_opacity or 0.18)</attribute>
-    </xpath>
-
-    <!-- Root article: inject CSS variables per company -->
-    <xpath expr="//div[contains(@class,'o_report_layout_wave')]" position="attributes">
-      <attribute name="t-attf-style">
-        --brand: {{company.report_brand_color or company.primary_color or '#1F6FEB'}};
-        --brand2: {{company.report_accent_color or company.secondary_color or '#0B3D91'}};
-        --logo-max-h: {{(company.report_logo_max_height or 88)|int}}px;
-        --radius: {{(company.report_radius or 12)|int}}px;
-        --thead-alpha: {{company.report_head_bg_alpha or 0.04}};
-      </attribute>
-    </xpath>
-
-    <!-- Company logo with dynamic max-height -->
-    <xpath expr="//img[contains(@class,'o_company_logo')]" position="attributes">
-      <attribute name="class">o_company_logo o_company_logo--dynamic</attribute>
-      <attribute name="t-att-style">'max-height:%spx' % (company.report_logo_max_height or 88)</attribute>
-    </xpath>
-
-    <!-- Footer wave color/opacity from company settings -->
-    <xpath expr="//div[contains(@class,'footer')]//svg/path" position="attributes">
-      <attribute name="t-att-fill">company.report_accent_color or company.secondary_color or company.primary_color</attribute>
-      <attribute name="t-att-fill-opacity">str(company.report_footer_opacity or 0.22)</attribute>
-    </xpath>
-
-  </template>
+    
+    <template id="external_layout_wave_dynamic"
+              inherit_id="web.external_layout_wave"
+              name="External Layout Wave - Dynamic Design">
+        
+        <!-- 1. DYNAMIC HEADER HEIGHT -->
+        <xpath expr="//t[@t-set='header_shape_height']" position="replace">
+            <t t-set="header_shape_height" t-value="str(company.report_header_height or 260)"/>
+        </xpath>
+        
+        <!-- 2. HEADER WAVE: Dynamic color and opacity -->
+        <xpath expr="//div[hasclass('header')]//path[@d]" position="attributes">
+            <attribute name="t-att-fill">company.report_brand_color or company.primary_color or '#1F6FEB'</attribute>
+            <attribute name="t-att-fill-opacity">str(company.report_header_opacity or 0.18)</attribute>
+        </xpath>
+        
+        <!-- 3. LOGO: Dynamic sizing -->
+        <xpath expr="//img[hasclass('o_company_logo')]" position="attributes">
+            <attribute name="t-attf-style">max-height: {{company.report_logo_max_height or 88}}px; width: auto;</attribute>
+            <attribute name="class">o_company_logo mb-2 o_dynamic_logo</attribute>
+        </xpath>
+        
+        <!-- 4. TAGLINE: Conditional display -->
+        <xpath expr="//div[@t-if='company.report_header']" position="attributes">
+            <attribute name="t-if">company.report_header and company.report_show_tagline</attribute>
+        </xpath>
+        
+        <!-- 5. ARTICLE/BODY: Inject CSS variables -->
+        <xpath expr="//div[hasclass('o_report_layout_wave')]" position="attributes">
+            <attribute name="t-attf-style">
+                {{report_type != 'pdf' and 'margin-top:' + header_shape_height + 'px;'}}
+                {{ 'background-image: url(%s);' % layout_background_url if layout_background_url else ''}}
+                --brand-color: {{company.report_brand_color or company.primary_color or '#1F6FEB'}};
+                --accent-color: {{company.report_accent_color or company.secondary_color or '#0B3D91'}};
+                --logo-height: {{company.report_logo_max_height or 88}}px;
+                --border-radius: {{company.report_radius or 12}}px;
+                --table-head-alpha: {{company.report_head_bg_alpha or 0.06}};
+                --header-opacity: {{company.report_header_opacity or 0.18}};
+                --footer-opacity: {{company.report_footer_opacity or 0.22}};
+            </attribute>
+            <attribute name="t-attf-class">
+                article o_report_layout_wave o_table_striped o_company_#{company.id}_layout 
+                {{'o_report_layout_background' if company.layout_background != 'Blank' else ''}}
+                {{'o_modern_report' if company.report_modern_style else ''}}
+                {{('o_report_font_' + company.report_font_size) if company.report_font_size else ''}}
+            </attribute>
+        </xpath>
+        
+        <!-- 6. FOOTER WAVE: Dynamic color and opacity -->
+        <xpath expr="//div[hasclass('footer')]//path[@d]" position="attributes">
+            <attribute name="t-att-fill">company.report_accent_color or company.secondary_color or company.primary_color or '#0B3D91'</attribute>
+            <attribute name="t-att-fill-opacity">str(company.report_footer_opacity or 0.22)</attribute>
+        </xpath>
+        
+    </template>
+    
 </odoo>
