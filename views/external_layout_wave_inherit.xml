@@ -1,0 +1,41 @@
+<odoo>
+  <template id="external_layout_wave_inherit"
+            inherit_id="web.external_layout_wave"
+            name="External Layout Wave – Dynamic (Company UI)">
+
+    <!-- Increase header wave height a bit -->
+    <xpath expr="//t[@t-name='web.external_layout_wave']/t[@t-set='header_shape_height']" position="replace">
+      <t t-set="header_shape_height" t-value="'260'"/>
+    </xpath>
+
+    <!-- Header wave color/opacity from company settings -->
+    <xpath expr="//div[contains(@class,'header')]/svg/path" position="attributes">
+      <attribute name="t-att-fill">company.report_brand_color or company.primary_color</attribute>
+      <attribute name="t-att-fill-opacity">str(company.report_header_opacity or 0.18)</attribute>
+    </xpath>
+
+    <!-- Root article: inject CSS variables per company -->
+    <xpath expr="//div[contains(@class,'o_report_layout_wave')]" position="attributes">
+      <attribute name="t-attf-style">
+        --brand: {{company.report_brand_color or company.primary_color or '#1F6FEB'}};
+        --brand2: {{company.report_accent_color or company.secondary_color or '#0B3D91'}};
+        --logo-max-h: {{(company.report_logo_max_height or 88)|int}}px;
+        --radius: {{(company.report_radius or 12)|int}}px;
+        --thead-alpha: {{company.report_head_bg_alpha or 0.04}};
+      </attribute>
+    </xpath>
+
+    <!-- Company logo with dynamic max-height -->
+    <xpath expr="//img[contains(@class,'o_company_logo')]" position="attributes">
+      <attribute name="class">o_company_logo o_company_logo--dynamic</attribute>
+      <attribute name="t-att-style">'max-height:%spx' % (company.report_logo_max_height or 88)</attribute>
+    </xpath>
+
+    <!-- Footer wave color/opacity from company settings -->
+    <xpath expr="//div[contains(@class,'footer')]//svg/path" position="attributes">
+      <attribute name="t-att-fill">company.report_accent_color or company.secondary_color or company.primary_color</attribute>
+      <attribute name="t-att-fill-opacity">str(company.report_footer_opacity or 0.22)</attribute>
+    </xpath>
+
+  </template>
+</odoo>

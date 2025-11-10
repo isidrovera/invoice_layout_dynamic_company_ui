@@ -1,0 +1,30 @@
+<odoo>
+  <record id="view_company_form_report_dynamic" model="ir.ui.view">
+    <field name="name">res.company.form.report.dynamic</field>
+    <field name="model">res.company</field>
+    <field name="inherit_id" ref="base.view_company_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//notebook" position="inside">
+        <page string="Report Layout (Dynamic)">
+          <group>
+            <group string="Colors">
+              <field name="report_brand_color" placeholder="#1F6FEB"/>
+              <field name="report_accent_color" placeholder="#0B3D91"/>
+            </group>
+            <group string="Sizes &amp; Radii">
+              <field name="report_logo_max_height"/>
+              <field name="report_radius"/>
+            </group>
+            <group string="Opacities">
+              <field name="report_header_opacity"/>
+              <field name="report_footer_opacity"/>
+              <field name="report_head_bg_alpha"/>
+            </group>
+          </group>
+          <label for="report_brand_color"/>
+          <p class="oe_grey">These settings affect PDF/HTML reports that use the Wave layout for this company.</p>
+        </page>
+      </xpath>
+    </field>
+  </record>
+</odoo>

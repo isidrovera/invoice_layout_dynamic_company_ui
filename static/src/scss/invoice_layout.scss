@@ -1,0 +1,78 @@
+:root {
+  --brand: #1F6FEB;
+  --brand2: #0B3D91;
+  --logo-max-h: 88px;
+  --radius: 12px;
+  --thead-alpha: .04;
+}
+
+.o_company_logo--dynamic {
+  max-height: var(--logo-max-h);
+  width: auto;
+  object-fit: contain;
+}
+
+.article .doc-title, .article h2 {
+  font-size: 26px;
+  letter-spacing: .3px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.article .table, .article table {
+  border-collapse: separate !important;
+  border-spacing: 0;
+}
+
+.article thead th {
+  border-bottom: 0 !important;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: .4px;
+  padding: 10px 12px !important;
+  background: rgba(0,0,0,var(--thead-alpha));
+  color: #111;
+}
+.article thead th:first-child { border-top-left-radius: var(--radius); }
+.article thead th:last-child  { border-top-right-radius: var(--radius); }
+
+.article tbody td {
+  padding: 9px 12px !important;
+  border-top: 1px solid rgba(0,0,0,.06) !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-accent-bg: rgba(0,0,0,.02);
+}
+
+.company-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 4px 14px rgba(0,0,0,.06);
+  border-radius: calc(var(--radius) + 2px);
+  padding: 10px 14px;
+  min-width: 320px;
+}
+
+.invoice-totals-box {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border: 1px dashed rgba(0,0,0,.16);
+  border-radius: var(--radius);
+}
+.invoice-totals-box .line {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 0;
+}
+.invoice-totals-box .line.total {
+  font-weight: 800;
+  font-size: 15px;
+  border-top: 1px solid rgba(0,0,0,.12);
+  margin-top: 6px;
+  padding-top: 10px;
+}
+
+a, .text-brand { color: var(--brand); }
+.badge-brand { background: var(--brand); color: #fff; border-radius: var(--radius); padding: .25rem .5rem; }
