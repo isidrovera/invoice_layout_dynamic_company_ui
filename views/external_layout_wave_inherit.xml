@@ -1,28 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
-    <template id="external_layout_wave_dynamic"
-              inherit_id="web.external_layout_wave"
-              name="External Layout Wave - Dynamic Design">
-        
-        <xpath expr="//t[@t-set='header_shape_height']" position="replace">
-            <t t-set="header_shape_height" t-value="str(company.report_header_height or 260)"/>
-        </xpath>
-        
-        <xpath expr="//path[@d='M1000 230.734C937.384 240.621 803.83 250.266 562.185 220.602C311.343 189.809 104.626 201.375 0 211.598V0.5H1000V230.734Z']" position="attributes">
-            <attribute name="t-att-fill">company.report_brand_color or company.primary_color</attribute>
-            <attribute name="t-att-fill-opacity">str(company.report_header_opacity or 0.18)</attribute>
-        </xpath>
-        
-        <xpath expr="//img[@t-if='company.logo']" position="attributes">
-            <attribute name="t-attf-style">max-height: {{company.report_logo_max_height or 88}}px; width: auto;</attribute>
-        </xpath>
-        
-        <xpath expr="//path[@d='M427.731 19.757C686.904 51.3469 898.971 38.039 1000 27.6922V180H0V8.20934C66.363 -0.991089 198.347 -8.20218 427.731 19.757Z']" position="attributes">
-            <attribute name="t-att-fill">company.report_accent_color or company.secondary_color or company.primary_color</attribute>
-            <attribute name="t-att-fill-opacity">str(company.report_footer_opacity or 0.22)</attribute>
-        </xpath>
-        
-    </template>
+   
     
 </odoo>
