@@ -9,7 +9,7 @@
             <t t-set="header_shape_height" t-value="str(company.report_header_height or 260)"/>
         </xpath>
         
-        <xpath expr="//div[@t-attf-class='header o_company_#{company.id}_layout {{report_type != \'pdf\' and \'h-0\'}}']//svg" position="replace">
+        <xpath expr="//div[contains(@class,'header')]//svg" position="replace">
             <svg xmlns="http://www.w3.org/2000/svg" t-attf-class="{{report_type == 'pdf' and 'position-fixed' or 'position-absolute'}} start-0 top-0 w-100 z-n1" preserveAspectRatio="none" t-att-height="header_shape_height" viewBox="0 0 1000 240" fill="none">
                 <path d="M1000 230.734C937.384 240.621 803.83 250.266 562.185 220.602C311.343 189.809 104.626 201.375 0 211.598V0.5H1000V230.734Z" t-att-fill="company.report_brand_color or company.primary_color" t-att-fill-opacity="str(company.report_header_opacity or 0.18)"/>
             </svg>
@@ -19,7 +19,7 @@
             <attribute name="t-attf-style">max-height: {{company.report_logo_max_height or 88}}px; width: auto;</attribute>
         </xpath>
         
-        <xpath expr="//div[@t-attf-class='footer o_company_#{company.id}_layout {{report_type != \'pdf\' and \'position-relative mt-auto mx-n5\'}}']//svg" position="replace">
+        <xpath expr="//div[contains(@class,'footer')]//svg" position="replace">
             <svg xmlns="http://www.w3.org/2000/svg" t-attf-class="{{report_type == 'pdf' and 'position-fixed start-0'}} w-100" preserveAspectRatio="none" t-att-height="report_type == 'pdf' and '180'" viewBox="0 0 1000 180" fill="none">
                 <path d="M427.731 19.757C686.904 51.3469 898.971 38.039 1000 27.6922V180H0V8.20934C66.363 -0.991089 198.347 -8.20218 427.731 19.757Z" t-att-fill="company.report_accent_color or company.secondary_color or company.primary_color" t-att-fill-opacity="str(company.report_footer_opacity or 0.22)"/>
             </svg>
