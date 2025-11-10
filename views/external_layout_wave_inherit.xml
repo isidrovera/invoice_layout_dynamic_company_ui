@@ -18,15 +18,6 @@
             <attribute name="t-attf-style">max-height: {{company.report_logo_max_height or 88}}px; width: auto;</attribute>
         </xpath>
         
-        <xpath expr="//div[@t-attf-class='article o_report_layout_wave o_table_striped o_company_#{company.id}_layout {{\\'o_report_layout_background\\' if company.layout_background != \\'Blank\\' else \\'\\'}}}']" position="before">
-            <t t-set="custom_styles">
-                --brand-color: <t t-esc="company.report_brand_color or company.primary_color or '#1F6FEB'"/>;
-                --accent-color: <t t-esc="company.report_accent_color or company.secondary_color or '#0B3D91'"/>;
-                --logo-height: <t t-esc="company.report_logo_max_height or 88"/>px;
-                --border-radius: <t t-esc="company.report_radius or 12"/>px;
-            </t>
-        </xpath>
-        
         <xpath expr="//path[@d='M427.731 19.757C686.904 51.3469 898.971 38.039 1000 27.6922V180H0V8.20934C66.363 -0.991089 198.347 -8.20218 427.731 19.757Z']" position="attributes">
             <attribute name="t-att-fill">company.report_accent_color or company.secondary_color or company.primary_color</attribute>
             <attribute name="t-att-fill-opacity">str(company.report_footer_opacity or 0.22)</attribute>
